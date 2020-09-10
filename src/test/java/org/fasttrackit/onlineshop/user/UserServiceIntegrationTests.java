@@ -62,6 +62,32 @@ public class UserServiceIntegrationTests {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> userService.getUser(99999));
     }
 
+    @Test
+    public void updateUser_whenExistingUser_thenReturnUpdatedUser() {
+        User createdUser = createUser();
+
+        SaveUserRequest request = new SaveUserRequest();
+
+        request.setFirstName(createdUser.getFirstName() + " updated");
+        request.setLastName(createdUser.getLastName() + " updated");
+
+        User updatedUser = userService.updateUser(createdUser.getId(), request);
+
+        assertThat(updatedUser, notNullValue());
+        assertThat(updatedUser.getId(), is(createdUser.getId()));
+        assertThat(updatedUser.getFirstName(), is(request.getFirstName()));
+        assertThat(updatedUser.getLastName(), is(request.getLastName()));
+    }
+
+    @Test
+    public void deleteUser_whenExistingUser_thanTheUserIsDeleted() {
+        User createdUser = createUser();
+
+        userService.deleteUser(createdUser.getId());
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> userService.getUser(createdUser.getId()));
+    }
+
     private User createUser() {
         SaveUserRequest request = new SaveUserRequest();
 

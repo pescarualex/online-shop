@@ -6,6 +6,7 @@ import org.fasttrackit.onlineshop.persistence.UserRepository;
 import org.fasttrackit.onlineshop.transfer.SaveUserRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,25 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User " + id + " does not exist"));
 
+    }
+
+    public User updateUser(long id, SaveUserRequest request) {
+        LOGGER.info("Updating user {}: {}", id, request);
+
+        User existingUser = getUser(id);
+
+//        existingUser.setFirstName(request.getFirstName());
+//        existingUser.setLastName(request.getLastName());
+
+        BeanUtils.copyProperties(request, existingUser);
+
+        return userRepository.save(existingUser);
+    }
+
+    public void deleteUser(long id) {
+        LOGGER.info("Deleting user {}", id);
+
+        userRepository.deleteById(id);
     }
 
 

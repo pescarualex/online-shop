@@ -1,9 +1,9 @@
-package org.fasttrackit.onlineshop.user;
+package org.fasttrackit.onlineshop.integrationTest.user;
 
 import org.fasttrackit.onlineshop.domain.User;
 import org.fasttrackit.onlineshop.exception.ResourceNotFoundException;
 import org.fasttrackit.onlineshop.service.UserService;
-import org.fasttrackit.onlineshop.steps.UserTestSteps;
+import org.fasttrackit.onlineshop.integrationTest.steps.UserTestSteps;
 import org.fasttrackit.onlineshop.transfer.user.SaveUserRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import org.springframework.transaction.TransactionSystemException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 
 @SpringBootTest
 public class UserServiceIntegrationTests {
